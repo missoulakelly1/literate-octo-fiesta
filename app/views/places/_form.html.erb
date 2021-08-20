@@ -1,0 +1,44 @@
+<%= form_with(model: place, local: true) do |form| %>
+  <% if place.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(place.errors.count, "error") %> prohibited this place from being saved:</h2>
+
+      <ul>
+      <% place.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :name, class: 'form-label' %>
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+
+  <div class="mb-3">
+    <%= form.label :latitude, class: 'form-label' %>
+      <%= form.text_field :latitude, class: 'form-control' %>
+    </div>
+
+  <div class="mb-3">
+    <%= form.label :longitude, class: 'form-label' %>
+      <%= form.text_field :longitude, class: 'form-control' %>
+    </div>
+
+  <div class="mb-3">
+    <% if place.persisted? %>
+      <div class="float-end">
+        <%= link_to 'Destroy', place, method: :delete, class: "text-danger", data: { confirm: 'Are you sure?' } %>
+      </div>
+    <% end %>
+
+    <%= form.submit class: 'btn btn-primary' %>
+
+    <% if place.persisted? %>
+      <%= link_to "Cancel", place, class: "btn btn-link" %>
+    <% else %>
+      <%= link_to "Cancel", places_path, class: "btn btn-link" %>
+    <% end %>
+  </div>
+<% end %>

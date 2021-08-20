@@ -1,0 +1,29 @@
+<%= form_with(model: stop, local: true) do |form| %>
+  <% if stop.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(stop.errors.count, "error") %> prohibited this stop from being saved:</h2>
+
+      <ul>
+      <% stop.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <% if stop.persisted? %>
+      <div class="float-end">
+        <%= link_to 'Destroy', stop, method: :delete, class: "text-danger", data: { confirm: 'Are you sure?' } %>
+      </div>
+    <% end %>
+
+    <%= form.submit class: 'btn btn-primary' %>
+
+    <% if stop.persisted? %>
+      <%= link_to "Cancel", stop, class: "btn btn-link" %>
+    <% else %>
+      <%= link_to "Cancel", stops_path, class: "btn btn-link" %>
+    <% end %>
+  </div>
+<% end %>
