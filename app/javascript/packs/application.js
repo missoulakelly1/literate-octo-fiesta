@@ -20,6 +20,13 @@ import "controllers"
 // Bootstrap
 import 'bootstrap'
 
+window.initMap = function(...args) {
+  const event = document.createEvent("Events")
+  event.initEvent("google-maps-callback", true, true)
+  event.args = args
+  window.dispatchEvent(event)
+}
+
 document.addEventListener("turbo:load", () => {
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
   var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -32,9 +39,3 @@ document.addEventListener("turbo:load", () => {
   })
 })
 
-window.initMap = function(...args) {
-  const event = document.createEvent("Events")
-  event.initEvent("google-maps-callback", true, true)
-  event.args = args
-  window.dispatchEvent(event)
-}

@@ -6,10 +6,10 @@
     <h1>Trips</h1>
   </div>
 
-  <div class="col-sm-6 text-end">
-  <%= link_to new_trip_path, class: 'btn btn-primary' do %>
-    Add New Trip
-  <% end %>
+  <div class="col-sm-6 text-right">
+    <%= link_to new_trip_path, class: 'btn btn-primary' do %>
+      Add New Trip
+    <% end %>
   </div>
 </div>
 
@@ -17,25 +17,17 @@
   <table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
-    
-
-            
-          <th></th>
-        
+        <th>Name</th>
       </tr>
     </thead>
 
     <tbody>
       <% @trips.each do |trip| %>
         <%= content_tag :tr, id: dom_id(trip), class: dom_class(trip) do %>
-          
-
-          
-          
-            <td><%= link_to 'Show', trip %></td>
-          
+          <td><%= link_to trip.name, trip %></td>
         <% end %>
       <% end %>
     </tbody>
   </table>
 </div>
+
