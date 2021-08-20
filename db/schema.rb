@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_20_185237) do
+ActiveRecord::Schema.define(version: 2021_08_20_190534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,8 @@ ActiveRecord::Schema.define(version: 2021_08_20_185237) do
     t.decimal "latitude", precision: 10, scale: 6
     t.decimal "longitude", precision: 10, scale: 6
     t.date "arrival_date"
+    t.bigint "trip_id", null: false
+    t.index ["trip_id"], name: "index_stops_on_trip_id"
   end
 
   create_table "trips", force: :cascade do |t|
@@ -131,4 +133,5 @@ ActiveRecord::Schema.define(version: 2021_08_20_185237) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "services", "users"
+  add_foreign_key "stops", "trips"
 end
