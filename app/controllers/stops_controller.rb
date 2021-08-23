@@ -1,7 +1,7 @@
 class StopsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_stop, only: %w(show edit update destroy)
   before_action :set_trip
+  before_action :set_stop, only: [:show, :edit, :update, :destroy]
 
   # GET /stops
   # GET /stops.json
@@ -16,7 +16,7 @@ class StopsController < ApplicationController
 
   # GET /stops/new
   def new
-    @stop = Stop.new(trip_id: params[:trip_id])
+    @stop = Stop.new
   end
 
   # GET /stops/1/edit
@@ -26,11 +26,11 @@ class StopsController < ApplicationController
   # POST /stops
   # POST /stops.json
   def create
-    @stop = Stop.new(stop_params)
+    @stop = @trip.stops.new(stop_params)
 
     respond_to do |format|
       if @stop.save
-        format.html { redirect_to trip_stop_url(@trip, @stop), notice: 'Stop was successfully created.' }
+        format.html { redirect_to trip_path(@trip), notice: 'Stop was successfully created.' }
         format.json { render :show, status: :created, location: @stop }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class StopsController < ApplicationController
   def update
     respond_to do |format|
       if @stop.update(stop_params)
-        format.html { redirect_to trip_stop_url(@trip, @stop), notice: 'Stop was successfully updated.' }
+        format.html { redirect_to trip_path(@trip), notice: 'Stop was successfully updated.' }
         format.json { render :show, status: :ok, location: @stop }
       else
         format.html { render :edit }
@@ -58,24 +58,24 @@ class StopsController < ApplicationController
   def destroy
     @stop.destroy
     respond_to do |format|
-      format.html { redirect_to trip_stops_url(@trip), notice: 'Stop was successfully destroyed.' }
+      format.html { redirect_to trip_path(@trip), notice: 'Stop was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
+    # Use callbacks to share common setup or constraints between actions.
 
     def set_trip
-      @trip = Trip.find(params[:trip_id])
+      @trip = current_user.trips.find(params[:trip_id])
     end
 
-    # Use callbacks to share common setup or constraints between actions.
     def set_stop
-      @stop = Stop.find(params[:id])
+      @stop = @trip.stops.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Only allow a list of trusted parameters through.
     def stop_params
-      params.require(:stop).permit(:trip_id, :name, :latitude, :longitude, :visited_at)
+      params.require(:stop).permit(:position, :address, :latitude, :longitude, :arrival_date, :notes)
     end
 end
