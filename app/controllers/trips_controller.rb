@@ -1,30 +1,16 @@
 class TripsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!
   before_action :set_trip, only: [:show, :edit, :update, :destroy]
 
   # GET /trips
   # GET /trips.json
   def index
-    @trips = Trip.all
-
-    respond_to do |format|
-      format.html
-      format.json { render @trips.to_json }
-    end
+    @trips = current_user.trips
   end
 
   # GET /trips/1
   # GET /trips/1.json
   def show
-    @stops = @trip.stops.map do |stop|
-      {
-        id: stop.id,
-        name: stop.display_name,
-        latitude: stop.latitude,
-        longitude: stop.longitude,
-        url: new_trip_stop_path(@trip, stop),
-      }
-    end
   end
 
   # GET /trips/new
@@ -39,8 +25,7 @@ class TripsController < ApplicationController
   # POST /trips
   # POST /trips.json
   def create
-    @trip = Trip.new(trip_params)
-    @trip.user = current_user
+    @trip = current_user.trips.new(trip_params)
 
     respond_to do |format|
       if @trip.save
@@ -80,10 +65,10 @@ class TripsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_trip
-      @trip = Trip.find(params[:id])
+      @trip = current_user.trips.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Only allow a list of trusted parameters through.
     def trip_params
       params.require(:trip).permit(:name)
     end
