@@ -20,6 +20,8 @@ import "controllers"
 // Bootstrap
 import 'bootstrap'
 
+require("packs/places.js")
+
 window.initMap = function(...args) {
   const event = document.createEvent("Events")
   event.initEvent("google-maps-callback", true, true)

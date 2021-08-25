@@ -29,10 +29,12 @@ export default class extends Controller {
     this.autocomplete.setFields(['address_components', 'geometry', 'icon', 'name'])
     this.autocomplete.addListener('place_changed', this.placeChanged.bind(this))
 
-    this.marker = new google.maps.Marker({
-      map: this.map,
-      anchorPoint: new google.maps.Point(0, -29)
-    })
+   this.marker = new google.maps.Marker({
+     map: this.map,
+     anchorPoint: new google.maps.Point(0, -29)
+   })
+
+  
   }
 
   placeChanged() {
@@ -63,3 +65,4 @@ export default class extends Controller {
     }
   }
 }
+

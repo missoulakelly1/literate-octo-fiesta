@@ -1,11 +1,14 @@
+<div data-controller="trips">
+<div data-action="google-maps-callback@window->trips#initMap2", places_latitude: stop.latitude, places_longitude: stop.longitude>
 <div class="page-header">
+
   <%= link_to @trip.name, @trip, class: 'btn btn-default' %>
   <%= link_to edit_trip_stop_path(@trip, @stop), class: 'btn btn-primary' do %>
     Edit
   <% end %>
   <h1>Show stop</h1>
 </div>
-
+<div class="d-flex">
 <dl class="dl-horizontal">
   <dt>Position:</dt>
   <dd><%= @stop.position %></dd>
@@ -26,3 +29,17 @@
   <dd><%= @stop.notes %></dd>
 
 </dl>
+
+<div class="p-4">
+      <div data-trips-target="map" style="height:400px;width:400px"></div>
+    </div>
+
+
+    
+<!--
+<div class="p-4">
+    <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=400x300&&markers=size:small%7Ccolor:red%7C#{@stop.latitude},#{@stop.longitude}&key=#{Rails.application.credentials[:google_maps_api_key]}", alt: "Map" %>
+    </div>
+</div>
+-->
+
