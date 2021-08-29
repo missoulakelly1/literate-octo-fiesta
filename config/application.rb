@@ -8,8 +8,6 @@ Bundler.require(*Rails.groups)
 
 module Myapp
   class Application < Rails::Application
-    config.active_job.queue_adapter = :sidekiq
-    config.application_name = Rails.application.class.module_parent_name
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
