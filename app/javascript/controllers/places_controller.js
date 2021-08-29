@@ -64,5 +64,9 @@ export default class extends Controller {
       event.preventDefault()
     }
   }
+
+  initMap2(){
+    var map = new (google.maps.Map)(this.mapTarget, { zoom: 10, center: location });
+  }
 }
 

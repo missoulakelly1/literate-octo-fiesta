@@ -11,6 +11,8 @@
     "@rails/webpacker": "5.4.2",
     "bootstrap": "^5.1.0",
     "expose-loader": "^3.0.0",
+    "jshint": "^2.13.1",
+    "jslint": "^0.12.1",
     "local-time": "^2.1.0",
     "stimulus": "^2.0.0"
   },

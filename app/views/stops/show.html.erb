@@ -1,5 +1,4 @@
-<div data-controller="trips">
-<div data-action="google-maps-callback@window->trips#initMap2", places_latitude: stop.latitude, places_longitude: stop.longitude>
+
 <div class="page-header">
 
   <%= link_to @trip.name, @trip, class: 'btn btn-default' %>
@@ -14,13 +13,13 @@
   <dd><%= @stop.position %></dd>
 
   <dt>Address:</dt>
-  <dd><%= @stop.address %></dd>
+  <dd data-places-target="field"><%= @stop.address %></dd>
 
   <dt>Latitude:</dt>
-  <dd><%= @stop.latitude %></dd>
+  <dd id="show_stop_lat"><%= @stop.latitude %></dd>
 
   <dt>Longitude:</dt>
-  <dd><%= @stop.longitude %></dd>
+  <dd id="show_stop_long"><%= @stop.longitude %></dd>
 
   <dt>Arrival date:</dt>
   <dd><%= @stop.arrival_date %></dd>
@@ -30,16 +29,18 @@
 
 </dl>
 
-<div class="p-4">
-      <div data-trips-target="map" style="height:400px;width:400px"></div>
-    </div>
-
+ 
 
     
-<!--
+
+
+
 <div class="p-4">
-    <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=400x300&&markers=size:small%7Ccolor:red%7C#{@stop.latitude},#{@stop.longitude}&key=#{Rails.application.credentials[:google_maps_api_key]}", alt: "Map" %>
-    </div>
-</div>
--->
+
+<iframe width="300" height="300" frameborder="0" style="border:0"
+src="https://maps.googleapis.com/maps/embed/v1/place?&key=<%=Rails.application.credentials[:google_maps_api_key] %>
+  &q=<%= @stop.latitude %>,<%= @stop.longitude %>" allowfullscreen></iframe>
+
+   </div>
+
 
